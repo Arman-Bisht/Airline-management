@@ -1,0 +1,44 @@
+#name Arman Bisht Batch B2
+# Compiler and flags
+#These lines define the compiler (CXX) as g++ and set the compiler flags (CXXFLAGS) to -std=c++11 for C++11 standard compliance and -Wall to enable compiler warnings.
+CXX = g++
+CXXFLAGS = -std=c++11 -Wall
+
+# Directories
+#These lines define the source code directory (SRC_DIR) as src and the binary directory (BIN_DIR) as bin.
+SRC_DIR = src
+BIN_DIR = bin
+
+# Source files
+#These lines use the wildcard function to find all source files (*.cpp) in the source code directory (SRC_DIR). The source files are stored in the SRCS variable. The OBJS variable is then created by replacing the source code directory prefix with the binary directory prefix.
+SRCS = $(wildcard $(SRC_DIR)/*.cpp)
+OBJS = $(SRCS:$(SRC_DIR)/%.cpp=$(BIN_DIR)/%.o)
+#name Arman Bisht batch B2
+# Target executable
+#This line defines the target executable file (TARGET) as bin/airline.
+TARGET = $(BIN_DIR)/airline
+
+# Default target
+#This line specifies the default target all, which depends on the target executable ($(TARGET)). When you run make without specifying a target, this is the target that will be executed.
+all: $(TARGET)
+
+# Compile and link the source files
+#These lines define a rule for compiling the source files into object files. Each object file ($(BIN_DIR)/%.o) depends on the corresponding source file ($(SRC_DIR)/%.cpp). The rule uses the compiler ($(CXX)), compiler flags ($(CXXFLAGS)), and the -c flag to compile the source file into an object file.
+$(TARGET): $(OBJS)
+	$(CXX) $(CXXFLAGS) $^ -o $@
+
+# Compile the source files into object files
+#These lines define a rule for compiling the source files into object files. Each object file ($(BIN_DIR)/%.o) depends on the corresponding source file ($(SRC_DIR)/%.cpp). The rule uses the compiler ($(CXX)), compiler flags ($(CXXFLAGS)), and the -c flag to compile the source file into an object file.
+($(TARGET)).
+$(BIN_DIR)/%.o: $(SRC_DIR)/%.cpp
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+# Clean the compiled files and executable
+#This rule defines the clean target, which removes the compiled object files ($(BIN_DIR)/*.o) and the target executable ($(TARGET)).
+clean:
+	rm -f $(BIN_DIR)/*.o $(TARGET)
+
+# Run the executable
+#This rule defines the run target, which executes the target executable ($(TARGET)).
+run:
+     $(TARGET)
